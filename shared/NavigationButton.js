@@ -9,9 +9,9 @@ export const NavigationButton = ({
 }) => {
   return (
     <Pressable
-      style={styles.button}
-      onPress={() => navigation.navigate(navigateTo)}
-      isDisabled={isDisabled}
+      style={[styles.button, isDisabled && styles.buttonDisabled]}
+      onPress={() => !isDisabled && navigation.navigate(navigateTo)}
+      disabled={isDisabled}
     >
       <Text style={styles.buttonText}>{btnText}</Text>
     </Pressable>
