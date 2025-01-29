@@ -1,5 +1,11 @@
 import { StyleSheet } from "react-native";
 
+const colorDark = "#333333";
+const colorLight = "#EDEFEE";
+const colorDisabled = "#999999";
+export const colorGreen = "#495f59";
+export const colorYellow = "#f2cf31";
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -11,24 +17,25 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#333333",
+    color: colorDark,
     textAlign: "center",
     marginBottom: 20,
   },
   text: {
     fontSize: 16,
-    color: "#333333",
+    color: colorDark,
     textAlign: "center",
   },
   button: {
     marginTop: 20,
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    backgroundColor: "#333333",
-    borderRadius: 10,
+    width: "95%",
+    height: 40,
+    padding: 10,
+    backgroundColor: colorGreen,
+    borderRadius: 5,
   },
   buttonDisabled: {
-    backgroundColor: "#999999",
+    backgroundColor: colorDisabled,
   },
   buttonText: {
     color: "white",
@@ -38,8 +45,8 @@ export const styles = StyleSheet.create({
   input: {
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: "#333333",
-    width: 320,
+    borderColor: colorDark,
+    width: "95%",
     height: 40,
     padding: 10,
   },
