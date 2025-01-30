@@ -1,17 +1,29 @@
 import { useState } from "react";
 import {
+  Alert,
   Image,
   Keyboard,
+  Pressable,
   Text,
   TextInput,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { NavigationButton } from "../shared/NavigationButton";
 import { styles } from "../styles";
 
-export const SubscribeScreen = ({ navigation }) => {
+export const SubscribeScreen = () => {
   const [email, onChangeEmail] = useState("");
+
+  const handlePress = () => {
+    Alert.alert("Thank you!", "Thank you for subscribing, stay tuned!", [
+      {
+        text: "OK",
+        onPress: () => console.log("OK Pressed"),
+        style: "default",
+      },
+    ]);
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.formContainer}>
@@ -33,17 +45,16 @@ export const SubscribeScreen = ({ navigation }) => {
             onChangeText={onChangeEmail}
             onBlur={Keyboard.dismiss}
           />
-          <NavigationButton
-            btnText={"Subscribe"}
-            navigation={navigation}
-            navigateTo={"Welcome"}
-            isDisabled={email === ""}
-          />
+          <Pressable
+            style={[styles.button, email === "" && styles.buttonDisabled]}
+            onPress={() => email !== "" && handlePress()}
+            disabled={email === ""}
+          >
+            <Text style={styles.buttonText}>Subscribe</Text>
+          </Pressable>
         </View>
         <View></View>
       </View>
     </TouchableWithoutFeedback>
   );
 };
-
-// Thank you for subscribing, stay tuned! OK

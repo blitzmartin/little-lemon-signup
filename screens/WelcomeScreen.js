@@ -1,5 +1,4 @@
-import { Image, Text, View } from "react-native";
-import { NavigationButton } from "../shared";
+import { Image, Pressable, Text, View } from "react-native";
 import { styles } from "../styles";
 
 export const WelcomeScreen = ({ navigation }) => {
@@ -13,11 +12,12 @@ export const WelcomeScreen = ({ navigation }) => {
       <Text style={styles.boldText}>
         Little Lemon, your local Mediterranean Bistro
       </Text>
-      <NavigationButton
-        btnText={"Newsletter"}
-        navigation={navigation}
-        navigateTo={"Subscribe"}
-      />
+      <Pressable
+        style={styles.button}
+        onPress={() => navigation.navigate("Subscribe")}
+      >
+        <Text style={styles.buttonText}>Newsletter</Text>
+      </Pressable>
     </View>
   );
 };
