@@ -15,13 +15,18 @@ export const SubscribeScreen = ({ navigation }) => {
   const [email, onChangeEmail] = useState("");
 
   const handlePress = () => {
-    Alert.alert("Thank you!", "Thank you for subscribing, stay tuned!", [
-      {
-        text: "OK",
-        onPress: () => navigation.navigate("Welcome"),
-        style: "default",
-      },
-    ]);
+    Alert.alert(
+      "Thank you!",
+      "Thank you for subscribing, stay tuned!",
+      [
+        {
+          text: "OK",
+          onPress: () => navigation.navigate("Welcome"),
+          style: "default",
+        },
+      ],
+      { cancelable: true }
+    );
   };
 
   return (
