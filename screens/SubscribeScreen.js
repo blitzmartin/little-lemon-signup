@@ -11,14 +11,14 @@ import {
 } from "react-native";
 import { styles } from "../styles";
 
-export const SubscribeScreen = () => {
+export const SubscribeScreen = ({ navigation }) => {
   const [email, onChangeEmail] = useState("");
 
   const handlePress = () => {
     Alert.alert("Thank you!", "Thank you for subscribing, stay tuned!", [
       {
         text: "OK",
-        onPress: () => console.log("OK Pressed"),
+        onPress: () => navigation.navigate("Welcome"),
         style: "default",
       },
     ]);
