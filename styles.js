@@ -10,9 +10,17 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
-    padding: 20,
+    padding: 32,
+    paddingBottom: 40,
+  },
+  formContainer: {
+    flex: 1,
+    backgroundColor: "white",
+    justifyContent: "start",
+    alignItems: "center",
+    padding: 32,
   },
   title: {
     fontSize: 24,
@@ -49,5 +57,28 @@ export const styles = StyleSheet.create({
     width: "95%",
     height: 40,
     padding: 10,
+    marginTop: 16,
+  },
+  mainLogo: {
+    width: 300,
+    height: 300,
+    resizeMode: "contain",
+    marginBottom: 20,
+  },
+  altLogo: {
+    width: 150,
+    height: 150,
+    resizeMode: "contain",
+    marginBottom: 20,
+  },
+  regularText: {
+    fontFamily: "Montserrat_400Regular",
+    fontSize: 20,
+    color: colorDark,
+  },
+  boldText: {
+    fontFamily: "Montserrat_700Bold",
+    fontSize: 20,
+    color: colorDark,
   },
 });
