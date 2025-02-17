@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Switch, Text, View } from "react-native";
+import { usePreferences } from "../hooks/usePreferences";
 import { colorDisabled, colorGreen, colorLight, colorYellow } from "../styles";
-
 export const AccountPreferencesScreen = () => {
-  const [pushNotifications, setPushNotifications] = useState(false);
-  const [marketingEmails, setMarketingEmails] = useState(false);
-  const [latestNews, setLatestNews] = useState(false);
+  // Usa il custom hook per gestire le preferenze
+  const { preferences, updatePreference } = usePreferences();
 
   return (
     <View style={accountStyles.container}>
@@ -14,30 +13,32 @@ export const AccountPreferencesScreen = () => {
       <View style={accountStyles.optionRow}>
         <Text>Push Notifications</Text>
         <Switch
-          value={pushNotifications}
-          onValueChange={setPushNotifications}
+          value={preferences.pushNotifications}
+          onValueChange={(value) =>
+            updatePreference("pushNotifications", value)
+          }
           trackColor={{ false: colorDisabled, true: colorGreen }}
-          thumbColor={pushNotifications ? colorYellow : colorLight}
+          thumbColor={preferences.pushNotifications ? colorYellow : colorLight}
         />
       </View>
 
       <View style={accountStyles.optionRow}>
         <Text>Marketing Emails</Text>
         <Switch
-          value={marketingEmails}
-          onValueChange={setMarketingEmails}
+          value={preferences.marketingEmails}
+          onValueChange={(value) => updatePreference("marketingEmails", value)}
           trackColor={{ false: colorDisabled, true: colorGreen }}
-          thumbColor={marketingEmails ? colorYellow : colorLight}
+          thumbColor={preferences.marketingEmails ? colorYellow : colorLight}
         />
       </View>
 
       <View style={accountStyles.optionRow}>
         <Text>Latest News</Text>
         <Switch
-          value={latestNews}
-          onValueChange={setLatestNews}
+          value={preferences.latestNews}
+          onValueChange={(value) => updatePreference("latestNews", value)}
           trackColor={{ false: colorDisabled, true: colorGreen }}
-          thumbColor={latestNews ? colorYellow : colorLight}
+          thumbColor={preferences.latestNews ? colorYellow : colorLight}
         />
       </View>
     </View>
