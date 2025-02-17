@@ -6,9 +6,9 @@ export const usePreferences = () => {
     pushNotifications: false,
     marketingEmails: false,
     latestNews: false,
+    // Add more preferences here
   });
 
-  // Carica le preferenze al montaggio del componente
   useEffect(() => {
     const loadPreferences = async () => {
       try {
@@ -24,7 +24,6 @@ export const usePreferences = () => {
     loadPreferences();
   }, []);
 
-  // Salva le preferenze ogni volta che cambiano
   useEffect(() => {
     const savePreferences = async () => {
       try {

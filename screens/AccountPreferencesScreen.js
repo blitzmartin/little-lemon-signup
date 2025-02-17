@@ -3,7 +3,6 @@ import { StyleSheet, Switch, Text, View } from "react-native";
 import { usePreferences } from "../hooks/usePreferences";
 import { colorDisabled, colorGreen, colorLight, colorYellow } from "../styles";
 export const AccountPreferencesScreen = () => {
-  // Usa il custom hook per gestire le preferenze
   const { preferences, updatePreference } = usePreferences();
 
   return (
