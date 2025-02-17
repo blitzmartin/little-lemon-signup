@@ -1,10 +1,18 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Image, Pressable, Text, View } from "react-native";
 import { styles } from "../styles";
 
 export const WelcomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <View></View>
+      <View style={styles.header}>
+        <Pressable
+          style={styles.accountIconContainer}
+          onPress={() => navigation.navigate("AccountPreferences")}
+        >
+          <Ionicons name="person-circle-outline" size={32} color="#495f59" />
+        </Pressable>
+      </View>
       <Image
         style={styles.mainLogo}
         source={require("../assets/little-lemon-logo.png")}

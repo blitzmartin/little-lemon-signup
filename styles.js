@@ -81,4 +81,18 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     color: colorDark,
   },
+  header: {
+    position: "absolute",
+    top: 12,
+    right: 12,
+  },
+  accountIconContainer: {
+    padding: 12,
+  },
+  optionRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 10,
+  },
 });
