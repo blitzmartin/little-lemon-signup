@@ -14,7 +14,7 @@ export const RootNavigator = () => {
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="Subscribe" component={SubscribeScreen} />
       <Stack.Screen
-        name="AccountPreferences"
+        name="Account Preferences"
         component={AccountPreferencesScreen}
       />
     </Stack.Navigator>
