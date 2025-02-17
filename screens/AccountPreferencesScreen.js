@@ -3,9 +3,9 @@ import { StyleSheet, Switch, Text, View } from "react-native";
 import { colorDisabled, colorGreen, colorLight, colorYellow } from "../styles";
 
 export const AccountPreferencesScreen = () => {
-  const [pushNotifications, setPushNotifications] = useState(true);
+  const [pushNotifications, setPushNotifications] = useState(false);
   const [marketingEmails, setMarketingEmails] = useState(false);
-  const [latestNews, setLatestNews] = useState(true);
+  const [latestNews, setLatestNews] = useState(false);
 
   return (
     <View style={accountStyles.container}>
