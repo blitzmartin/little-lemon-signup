@@ -8,7 +8,7 @@ export const WelcomeScreen = ({ navigation }) => {
       <View style={styles.header}>
         <Pressable
           style={styles.accountIconContainer}
-          onPress={() => navigation.navigate("AccountPreferences")}
+          onPress={() => navigation.navigate("Account Preferences")}
         >
           <Ionicons name="person-circle-outline" size={32} color="#495f59" />
         </Pressable>
