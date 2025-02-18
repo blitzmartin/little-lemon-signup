@@ -26,6 +26,12 @@ export const WelcomeScreen = ({ navigation }) => {
       >
         <Text style={styles.buttonText}>Newsletter</Text>
       </Pressable>
+      <Pressable
+        style={styles.button}
+        onPress={() => navigation.navigate("Customers")}
+      >
+        <Text style={styles.buttonText}>Customers</Text>
+      </Pressable>
     </View>
   );
 };

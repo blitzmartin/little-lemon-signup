@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import {
   AccountPreferencesScreen,
+  CustomerScreen,
   SubscribeScreen,
   WelcomeScreen,
 } from "../screens";
@@ -13,6 +14,7 @@ export const RootNavigator = () => {
     <Stack.Navigator initialRouteName="Welcome">
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="Subscribe" component={SubscribeScreen} />
+      <Stack.Screen name="Customers" component={CustomerScreen} />
       <Stack.Screen
         name="Account Preferences"
         component={AccountPreferencesScreen}
