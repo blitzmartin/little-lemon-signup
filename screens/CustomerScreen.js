@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { styles } from "../styles";
 import {
-  addCustomer,
+  createCustomer,
   emptyCustomersTable,
   getCustomers,
 } from "../utils/database";
@@ -26,7 +26,7 @@ export const CustomerScreen = () => {
 
   const handleAddCustomer = async () => {
     try {
-      await addCustomer(textInput);
+      await createCustomer(textInput);
       getCustomers(setCustomers);
       onChangeTextInput("");
     } catch (err) {

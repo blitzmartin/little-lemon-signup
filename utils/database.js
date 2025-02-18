@@ -30,7 +30,7 @@ export const getCustomers = (successCallback) => {
   });
 };
 
-export const addCustomer = (name) => {
+export const createCustomer = (name) => {
   return new Promise((resolve, reject) => {
     db.transaction(
       (tx) => {
@@ -42,7 +42,24 @@ export const addCustomer = (name) => {
         );
       },
       (error) => reject(error),
-      () => console.log("Transaction completed successfully")
+      () => console.log("Customer create success")
+    );
+  });
+};
+
+export const editCustomer = (id, name) => {
+  return new Promise((resolve, reject) => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql(
+          "UPDATE customers SET name = ? WHERE id = ?",
+          [id, name],
+          (_, result) => resolve(result),
+          (_, error) => reject(error)
+        );
+      },
+      (error) => reject(error),
+      () => console.log("Customer edit success")
     );
   });
 };
