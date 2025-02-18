@@ -1,28 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  Alert,
+  FlatList,
   Keyboard,
-  Pressable,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { styles } from "../styles";
+import {
+  addCustomer,
+  emptyCustomersTable,
+  getCustomers,
+} from "../utils/database";
 
 export const CustomerScreen = () => {
-  const [name, onChangeName] = useState("");
-  const handleAddCustomer = () => {
-    Alert.alert(
-      "Added!",
-      `Customer ${name} was added to list`,
-      [
-        {
-          text: "OK",
-          style: "default",
-        },
-      ],
-      { cancelable: true }
-    );
+  const [textInput, onChangeTextInput] = useState("");
+  const [customers, setCustomers] = useState([]);
+
+  useEffect(() => {
+    getCustomers(setCustomers);
+  }, []);
+
+  const handleAddCustomer = async () => {
+    try {
+      await addCustomer(textInput);
+      getCustomers(setCustomers);
+      onChangeTextInput("");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleClearList = async () => {
+    try {
+      await emptyCustomersTable();
+      getCustomers(setCustomers);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -33,13 +49,26 @@ export const CustomerScreen = () => {
         placeholder="add customer name"
         autoCapitalize="none"
         autoCorrect={false}
-        value={name}
-        onChangeText={onChangeName}
+        value={textInput}
+        onChangeText={onChangeTextInput}
         onBlur={Keyboard.dismiss}
       />
-      <Pressable style={styles.button} onPress={handleAddCustomer}>
+      <TouchableOpacity
+        style={styles.button}
+        disabled={!textInput}
+        onPress={handleAddCustomer}
+      >
         <Text style={styles.buttonText}>Save Customer</Text>
-      </Pressable>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.buttonOutlined} onPress={handleClearList}>
+        <Text style={styles.buttonOutlinedText}>Clear List</Text>
+      </TouchableOpacity>
+      {customers.length > 0 && <Text>Customers:</Text>}
+      <FlatList
+        data={customers}
+        renderItem={({ item }) => <Text>{item.name}</Text>}
+        keyExtractor={(item) => item.id}
+      />
     </View>
   );
 };

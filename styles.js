@@ -50,6 +50,21 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
+  buttonOutlined: {
+    marginTop: 20,
+    width: "95%",
+    height: 40,
+    padding: 10,
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: colorGreen,
+    borderRadius: 5,
+  },
+  buttonOutlinedText: {
+    color: colorGreen,
+    fontSize: 16,
+    textAlign: "center",
+  },
   input: {
     borderRadius: 5,
     borderWidth: 1,
