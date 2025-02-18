@@ -101,13 +101,36 @@ export const styles = StyleSheet.create({
     top: 12,
     right: 12,
   },
-  accountIconContainer: {
-    padding: 12,
-  },
   optionRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 10,
+  },
+  listContainer: {
+    width: "100%",
+    paddingLeft: 16,
+    marginTop: 16,
+    textAlign: "left",
+  },
+  listTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  itemsContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  itemText: {
+    fontSize: 16,
+  },
+  iconContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "end",
+    alignItems: "center",
   },
 });

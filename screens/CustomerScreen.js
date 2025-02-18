@@ -1,7 +1,9 @@
+import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import {
   FlatList,
   Keyboard,
+  Pressable,
   Text,
   TextInput,
   TouchableOpacity,
@@ -47,7 +49,7 @@ export const CustomerScreen = () => {
       <TextInput
         style={styles.input}
         placeholder="add customer name"
-        autoCapitalize="none"
+        autoCapitalize="words"
         autoCorrect={false}
         value={textInput}
         onChangeText={onChangeTextInput}
@@ -63,12 +65,37 @@ export const CustomerScreen = () => {
       <TouchableOpacity style={styles.buttonOutlined} onPress={handleClearList}>
         <Text style={styles.buttonOutlinedText}>Clear List</Text>
       </TouchableOpacity>
-      {customers.length > 0 && <Text>Customers:</Text>}
-      <FlatList
-        data={customers}
-        renderItem={({ item }) => <Text>{item.name}</Text>}
-        keyExtractor={(item) => item.id}
-      />
+      <View style={styles.listContainer}>
+        {customers.length > 0 && (
+          <Text style={styles.listTitle}>Customers:</Text>
+        )}
+        <FlatList
+          data={customers}
+          renderItem={({ item }) => <Item item={item} />}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
+    </View>
+  );
+};
+
+const Item = ({ item }) => {
+  return (
+    <View style={styles.itemsContainer}>
+      <Text style={styles.itemText}>{item.name}</Text>
+      <View style={styles.iconContainer}>
+        <Pressable onPress={() => console.log("Edit")}>
+          <Ionicons
+            name="create"
+            size={32}
+            color="#495f59"
+            style={{ paddingRight: 8 }}
+          />
+        </Pressable>
+        <Pressable onPress={() => console.log("Delete")}>
+          <Ionicons name="trash" size={32} color="#495f59" />
+        </Pressable>
+      </View>
     </View>
   );
 };
