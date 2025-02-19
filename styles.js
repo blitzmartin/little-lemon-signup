@@ -133,4 +133,22 @@ export const styles = StyleSheet.create({
     justifyContent: "end",
     alignItems: "center",
   },
+  dialogInputStyle: {
+    width: "100%",
+    padding: 12,
+    borderWidth: 1,
+    borderColor: colorLight,
+    borderRadius: 8,
+    fontSize: 16,
+    color: colorDark,
+    backgroundColor: colorLight,
+  },
+  dialogBtn: {
+    backgroundColor: colorLight,
+    borderRadius: "10px",
+    color: colorDark,
+  },
+  dialogTitle: {
+    color: colorLight,
+  },
 });

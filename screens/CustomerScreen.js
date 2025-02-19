@@ -9,23 +9,22 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { styles } from "../styles";
+import { Button, Dialog, Portal } from "react-native-paper";
+import { colorGreen, styles } from "../styles";
 import {
   createCustomer,
   deleteCustomer,
+  editCustomer,
   emptyCustomersTable,
   getCustomers,
 } from "../utils/database";
-/* import {
-  IconButton,
-  Provider,
-  Portal,
-  Dialog,
-  Button,
-} from "react-native-paper"; */
 export const CustomerScreen = () => {
   const [textInput, onChangeTextInput] = useState("");
   const [customers, setCustomers] = useState([]);
+  const [dialog, setDialog] = useState({
+    customer: {},
+    isVisible: false,
+  });
 
   useEffect(() => {
     //resetDatabase();
@@ -49,6 +48,20 @@ export const CustomerScreen = () => {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const showDialog = (customer) =>
+    setDialog({
+      isVisible: true,
+      customer,
+    });
+
+  const hideDialog = (updatedCustomer) => {
+    setDialog({
+      isVisible: false,
+      customer: {},
+    });
+    editCustomer(updatedCustomer, setCustomers);
   };
 
   return (
@@ -80,21 +93,60 @@ export const CustomerScreen = () => {
         <FlatList
           data={customers}
           renderItem={({ item }) => (
-            <Item customer={item} setCustomers={setCustomers} />
+            <Item
+              customer={item}
+              setCustomers={setCustomers}
+              showDialog={showDialog}
+            />
           )}
           keyExtractor={(item) => item.uid}
         />
       </View>
+      <Portal>
+        <Dialog
+          visible={dialog.isVisible}
+          onDismiss={hideDialog}
+          style={{ backgroundColor: colorGreen }}
+        >
+          <Dialog.Title style={styles.dialogTitle}>
+            Edit Customer name
+          </Dialog.Title>
+          <Dialog.Content>
+            <TextInput
+              value={dialog.customer.name}
+              onChangeText={(text) =>
+                setDialog((prev) => ({
+                  ...prev,
+                  customer: {
+                    ...prev.customer,
+                    name: text,
+                  },
+                }))
+              }
+              underlineColorAndroid="transparent"
+              style={styles.dialogInputStyle}
+            />
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button
+              style={styles.dialogBtn}
+              onPress={() => hideDialog(dialog.customer)}
+            >
+              Done
+            </Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </View>
   );
 };
 
-const Item = ({ customer, setCustomers }) => {
+const Item = ({ customer, setCustomers, showDialog }) => {
   return (
     <View style={styles.itemsContainer}>
       <Text style={styles.itemText}>{customer.name}</Text>
       <View style={styles.iconContainer}>
-        <Pressable onPress={() => console.log("Edit")}>
+        <Pressable onPress={() => showDialog(customer)}>
           <Ionicons
             name="create"
             size={32}
@@ -109,3 +161,28 @@ const Item = ({ customer, setCustomers }) => {
     </View>
   );
 };
+
+/*    <Portal>
+        <Dialog visible={dialog.isVisible} onDismiss={hideDialog}>
+          <Dialog.Title>Edit Customer name</Dialog.Title>
+          <Dialog.Content>
+            <TextInput
+              value={dialog.customer.name}
+              onChangeText={(text) =>
+                setDialog((prev) => ({
+                  ...prev,
+                  customer: {
+                    ...prev.customer,
+                    name: text,
+                  },
+                }))
+              }
+              underlineColorAndroid="transparent"
+              style={styles.textInputStyle}
+            />
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={() => hideDialog(dialog.customer)}>Done</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal> */

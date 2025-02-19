@@ -50,15 +50,24 @@ export const initializeDatabase = () => {
 initializeDatabase();
 
 // GET CUSTOMERS
-export const getCustomers = (successCallback) => {
-  db.transaction((tx) => {
-    tx.executeSql(
-      "SELECT * FROM customers",
-      [],
-      (_, { rows: { _array } }) => successCallback(_array),
-      (_, error) => console.error("Error fetching customers:", error)
-    );
-  });
+export const getCustomers = async (successCallback) => {
+  try {
+    const customers = await new Promise((resolve, reject) => {
+      db.transaction((tx) => {
+        tx.executeSql(
+          "SELECT * FROM customers",
+          [],
+          (_, result) => resolve(result.rows._array),
+          (_, error) => reject(error)
+        );
+      });
+    });
+
+    console.log("Customers fetched from DB:", customers);
+    successCallback(customers);
+  } catch (error) {
+    console.error("Error fetching customers:", error);
+  }
 };
 
 // CREATE CUSTOMER
@@ -84,21 +93,26 @@ export const createCustomer = (name) => {
 };
 
 // EDIT CUSTOMER
-export const editCustomer = (id, name) => {
-  return new Promise((resolve, reject) => {
-    db.transaction(
-      (tx) => {
-        tx.executeSql(
-          "UPDATE customers SET name = ? WHERE id = ?",
-          [id, name],
-          (_, result) => resolve(result),
-          (_, error) => reject(error)
-        );
-      },
-      (error) => reject(error),
-      () => console.log("Customer edit success")
-    );
-  });
+export const editCustomer = async (customer, setCustomers) => {
+  try {
+    await new Promise((resolve, reject) => {
+      db.transaction(
+        (tx) => {
+          tx.executeSql(
+            "UPDATE customers SET name = ? WHERE uid = ?",
+            [customer.name, customer.uid],
+            (_, result) => resolve(result),
+            (_, error) => reject(error)
+          );
+        },
+        (error) => reject(error),
+        () => console.log("Customer edit success")
+      );
+    });
+    getCustomers(setCustomers);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 // DELETE CUSTOMER
@@ -134,15 +148,30 @@ export const deleteCustomer = async (customer, setCustomers) => {
 };
 
 // DROP CUSTOMERS TABLE
-export const emptyCustomersTable = () => {
-  return new Promise((resolve, reject) => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "DELETE FROM customers;",
-        [],
-        (_, result) => resolve(result),
-        (_, error) => reject(error)
+export const emptyCustomersTable = async () => {
+  try {
+    const shouldEmptyTable = await asyncAlert({
+      title: "Empty table",
+      message: "Are you sure you want to delete all customers?",
+    });
+
+    if (!shouldEmptyTable) {
+      return;
+    }
+    await new Promise((resolve, reject) => {
+      db.transaction(
+        (tx) => {
+          tx.executeSql(
+            "DELETE FROM customers;",
+            [],
+            (_, result) => resolve(result),
+            (_, error) => reject(error)
+          );
+        },
+        (error) => reject(error)
       );
     });
-  });
+  } catch (err) {
+    console.error(err);
+  }
 };

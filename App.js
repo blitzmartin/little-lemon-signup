@@ -5,6 +5,7 @@ import {
 } from "@expo-google-fonts/montserrat";
 import { NavigationContainer } from "@react-navigation/native";
 import { Text } from "react-native";
+import { Provider as PaperProvider } from "react-native-paper";
 import { RootNavigator } from "./navigators/RootNavigator";
 
 export default function App() {
@@ -16,8 +17,10 @@ export default function App() {
     return <Text>Loading...</Text>;
   }
   return (
-    <NavigationContainer>
-      <RootNavigator />
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer>
+        <RootNavigator />
+      </NavigationContainer>
+    </PaperProvider>
   );
 }
