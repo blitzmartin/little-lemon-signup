@@ -12,15 +12,23 @@ import {
 import { styles } from "../styles";
 import {
   createCustomer,
+  deleteCustomer,
   emptyCustomersTable,
   getCustomers,
 } from "../utils/database";
-
+/* import {
+  IconButton,
+  Provider,
+  Portal,
+  Dialog,
+  Button,
+} from "react-native-paper"; */
 export const CustomerScreen = () => {
   const [textInput, onChangeTextInput] = useState("");
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
+    //resetDatabase();
     getCustomers(setCustomers);
   }, []);
 
@@ -71,18 +79,20 @@ export const CustomerScreen = () => {
         )}
         <FlatList
           data={customers}
-          renderItem={({ item }) => <Item item={item} />}
-          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Item customer={item} setCustomers={setCustomers} />
+          )}
+          keyExtractor={(item) => item.uid}
         />
       </View>
     </View>
   );
 };
 
-const Item = ({ item }) => {
+const Item = ({ customer, setCustomers }) => {
   return (
     <View style={styles.itemsContainer}>
-      <Text style={styles.itemText}>{item.name}</Text>
+      <Text style={styles.itemText}>{customer.name}</Text>
       <View style={styles.iconContainer}>
         <Pressable onPress={() => console.log("Edit")}>
           <Ionicons
@@ -92,7 +102,7 @@ const Item = ({ item }) => {
             style={{ paddingRight: 8 }}
           />
         </Pressable>
-        <Pressable onPress={() => console.log("Delete")}>
+        <Pressable onPress={() => deleteCustomer(customer, setCustomers)}>
           <Ionicons name="trash" size={32} color="#495f59" />
         </Pressable>
       </View>
